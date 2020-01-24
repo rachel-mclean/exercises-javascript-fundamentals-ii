@@ -17,10 +17,52 @@
  */
 
 function formatSeconds(num) {
-  // This is your job. :)
+  let time = [];
+  if(num>=604800){
+    weeks(num);
+  }
 
-  // Remember, if the code is stumping you, take a step back and
-  // make sure you can do it by hand.
+  else if(num>=86400){
+    days(num);
+  }
+
+  else if(num>=3600){
+    hours(num);
+  }
+
+  else if(num>=60){
+    minutes(num);
+  }
+
+  else{
+    return num + 's';
+  }
+
+  return time;
+}
+
+function minutes(num, time){
+  let numMinutes = Math.floor(num/60) + 's';
+  let remainder = num%60 + 's';
+  time.push(numMinutes + remainder);
+}
+
+function hours(num, time){
+  let numHours = Math.floor(num/3600);
+  time.push(numHours);
+  let remainder = minutes(num%3600, time);
+}
+
+function days(num){
+  let numDays = Math.floor(num/86400);
+  time.push(numDays);
+  let remainder = hours(num%86400, time);
+}
+
+function weeks(num){
+  let numWeeks = Math.floor(num/604800);
+  time.push(numWeeks);
+  let remainder = days(num%604800, time);
 }
 
 if (require.main === module) {
